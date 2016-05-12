@@ -13,5 +13,7 @@ VOLUME ["/kafka"]
 
 ENV KAFKA_HOME /opt/kafka_${SCALA_VERSION}-${KAFKA_VERSION}
 
+EXPOSE 9092
+
 ADD kafka-init.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/kafka-init.sh"]
