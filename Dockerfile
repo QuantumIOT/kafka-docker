@@ -1,7 +1,7 @@
-FROM ubuntu:vivid
+FROM java:openjdk-8-jre-alpine
 
 RUN apt-get update \
- && apt-get -y install git openjdk-8-jdk docker jq coreutils curl wget\
+ && apt-get -y install jq coreutils curl wget\
  && apt-get clean
 
 RUN mkdir -p ~/Downloads
