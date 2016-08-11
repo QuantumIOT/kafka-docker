@@ -1,6 +1,6 @@
 FROM java:openjdk-8-jre-alpine
 
-RUN apk add --no-cache wget bash jq coreutils curl
+RUN apk add --no-cache wget bash jq coreutils curl tar
 
 RUN mkdir -p ~/Downloads
 ADD download-kafka.sh /tmp/download-kafka.sh
