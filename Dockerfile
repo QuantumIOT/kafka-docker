@@ -1,8 +1,6 @@
 FROM java:openjdk-8-jre-alpine
 
-RUN apt-get update \
- && apt-get -y install jq coreutils curl wget\
- && apt-get clean
+RUN apk add --no-cache wget bash jq coreutils curl
 
 RUN mkdir -p ~/Downloads
 ADD download-kafka.sh /tmp/download-kafka.sh
