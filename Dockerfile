@@ -1,13 +1,17 @@
-FROM ubuntu:vivid
+FROM java:openjdk-8-jre-alpine
 
-RUN apt-get update \
- && apt-get -y install git openjdk-8-jdk docker jq coreutils curl wget\
- && apt-get clean
+RUN apk add --no-cache wget bash jq coreutils curl tar
 
 RUN mkdir -p ~/Downloads
+RUN mkdir -p /opt
+
 ADD download-kafka.sh /tmp/download-kafka.sh
+
 ENV KAFKA_VERSION="0.9.0.1" SCALA_VERSION="2.11"
-RUN /tmp/download-kafka.sh && tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt && rm /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
+
+RUN /tmp/download-kafka.sh
+RUN tar xfz /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C /opt
+RUN rm /tmp/kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
 VOLUME ["/kafka"]
 
