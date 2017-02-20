@@ -35,7 +35,7 @@ RUN set -x \
     && apk del .build-deps
 
 WORKDIR $DISTRO_NAME
-VOLUME ["$KAFKA_CONF_DIR", "KAFKA_LOGS_DIR"]
+VOLUME ["$KAFKA_LOGS_DIR"]
 
 EXPOSE $KAFKA_PORT
 
@@ -44,4 +44,4 @@ ENV PATH=$PATH:/$DISTRO_NAME/bin \
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["kafka-server-start.sh"]
+CMD ["kafka-server-start.sh", "$KAFKA_CONF_DIR/server.properties"]
