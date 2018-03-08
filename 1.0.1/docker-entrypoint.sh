@@ -31,13 +31,12 @@ if [ ! -f "$KAFKA_CONF_DIR/server.properties" ]; then
     fi
     
     if [ ! -z "$KAFKA_ADVERTISED_HOST_NAME" ]; then
-      KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote=true"
-      KAFKA_JMX_OPTS="$KAFKA_JMX_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
-      KAFKA_JMX_OPTS="$KAFKA_JMX_OPTS -Dcom.sun.management.jmxremote.ssl=false"
-      KAFKA_JMX_OPTS="$KAFKA_JMX_OPTS -Dcom.sun.management.jmxremote.rmi.port=$JMX_PORT"
-      KAFKA_JMX_OPTS="$KAFKA_JMX_OPTS -Djava.rmi.server.hostname=$KAFKA_ADVERTISED_HOST_NAME"
-      export KAFKA_JMX_OPTS
+      JMX_OPTS="-Dcom.sun.management.jmxremote=true"
+      JMX_OPTS="$JMX_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
+      JMX_OPTS="$JMX_OPTS -Dcom.sun.management.jmxremote.ssl=false"
+      JMX_OPTS="$JMX_OPTS -Dcom.sun.management.jmxremote.rmi.port=$JMX_PORT"
+      JMX_OPTS="$JMX_OPTS -Djava.rmi.server.hostname=$KAFKA_ADVERTISED_HOST_NAME"
     fi
 fi
 
-exec kafka-server-start.sh $KAFKA_CONF_DIR/server.properties
+exec env KAFKA_JMX_OPTS=$JMX_OPTS kafka-server-start.sh $KAFKA_CONF_DIR/server.properties
