@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e
-set -a
 
 # Generate the server.properties only if it doesn't exist
 if [ ! -f "$KAFKA_CONF_DIR/server.properties" ]; then
@@ -29,14 +28,6 @@ if [ ! -f "$KAFKA_CONF_DIR/server.properties" ]; then
     if [ ! -z "$KAFKA_ADVERTISED_LISTENERS" ]; then
         echo "advertised.listeners=$KAFKA_ADVERTISED_LISTENERS" >> "$CONFIG"
     fi
-    
-    if [ ! -z "$KAFKA_ADVERTISED_HOST_NAME" ]; then
-      JMX_OPTS="-Dcom.sun.management.jmxremote=true"
-      JMX_OPTS="$JMX_OPTS -Dcom.sun.management.jmxremote.authenticate=false"
-      JMX_OPTS="$JMX_OPTS -Dcom.sun.management.jmxremote.ssl=false"
-      JMX_OPTS="$JMX_OPTS -Dcom.sun.management.jmxremote.rmi.port=$JMX_PORT"
-      JMX_OPTS="$JMX_OPTS -Djava.rmi.server.hostname=$KAFKA_ADVERTISED_HOST_NAME"
-    fi
 fi
 
-exec env KAFKA_JMX_OPTS=$JMX_OPTS kafka-server-start.sh $KAFKA_CONF_DIR/server.properties
+exec "$@"
