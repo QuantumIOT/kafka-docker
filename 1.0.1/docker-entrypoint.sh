@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-set -x
+set -a
 
 # Generate the server.properties only if it doesn't exist
 if [ ! -f "$KAFKA_CONF_DIR/server.properties" ]; then
