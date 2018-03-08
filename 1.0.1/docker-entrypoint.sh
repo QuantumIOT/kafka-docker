@@ -40,4 +40,4 @@ if [ ! -f "$KAFKA_CONF_DIR/server.properties" ]; then
     fi
 fi
 
-exec "$@"
+exec kafka-server-start.sh $KAFKA_CONF_DIR/server.properties

@@ -38,5 +38,4 @@ ENV PATH=$PATH:/$DISTRO_NAME/bin \
     KAFKACFGDIR=$KAFKA_CONF_DIR
 
 COPY docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["kafka-server-start.sh", "/config/server.properties"]
+CMD ["/docker-entrypoint.sh"]
